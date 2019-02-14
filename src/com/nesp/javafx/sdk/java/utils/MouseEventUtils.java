@@ -15,7 +15,7 @@
  *
  */
 
-package com.nesp.javafx.sdk.utils;
+package com.nesp.javafx.sdk.java.utils;
 
 
 import javafx.scene.Node;

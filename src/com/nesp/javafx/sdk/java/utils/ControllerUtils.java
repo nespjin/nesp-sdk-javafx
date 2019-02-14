@@ -15,10 +15,11 @@
  *
  */
 
-package com.nesp.javafx.sdk.utils;
+package com.nesp.javafx.sdk.java.utils;
 
 
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 public class ControllerUtils {
 
@@ -32,6 +33,9 @@ public class ControllerUtils {
         subWidget.prefWidthProperty().bind(parentWidget.widthProperty());
     }
 
+    public static void bindWidth(Region subWidget, Stage parentWidget) {
+        subWidget.prefWidthProperty().bind(parentWidget.widthProperty());
+    }
 
     /**
      * 高度绑定高度
@@ -43,8 +47,17 @@ public class ControllerUtils {
         subWidget.prefHeightProperty().bind(parentWidget.heightProperty());
     }
 
+    public static void bindHeight(Region subWidget, Stage parentWidget) {
+        subWidget.prefHeightProperty().bind(parentWidget.heightProperty());
+    }
+
     public static void bindHeightAndWidth(Region subWidget, Region parentWidget) {
-        bindHeight(subWidget,parentWidget);
-        bindWidth(subWidget,parentWidget);
+        bindHeight(subWidget, parentWidget);
+        bindWidth(subWidget, parentWidget);
+    }
+
+    public static void bindHeightAndWidth(Region subWidget, Stage parentWidget) {
+        bindHeight(subWidget, parentWidget);
+        bindWidth(subWidget, parentWidget);
     }
 }

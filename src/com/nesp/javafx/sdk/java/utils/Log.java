@@ -15,9 +15,17 @@
  *
  */
 
-package com.nesp.javafx.sdk.utils;
+package com.nesp.javafx.sdk.java.utils;
 
 public class Log {
+
+    public static void print(String message) {
+        System.out.println("MSG:" + message + "\n");
+    }
+
+    public static void print(Integer message) {
+        System.out.println("MSG:" + message + "\n");
+    }
 
     public static void print(String TAG, String message) {
         System.out.println("TAG:" + TAG + "|| MSG:" + message + "\n");
@@ -25,5 +33,9 @@ public class Log {
 
     public static void print(String TAG, double message) {
         System.out.println("TAG:" + TAG + "|| MSG:" + message + "\n");
+    }
+
+    public static void i(String tag, String s) {
+        print(tag,s);
     }
 }
