@@ -3,8 +3,8 @@ Nesp software development kit for JavaFx
 
 ## Dependency
 
-- [JavaFx 11](https://openjfx.io/)
-- [OpenJDK 11](http://www.planetjdk.org/projects/jdk/)
+- [JavaFx 12](https://openjfx.io/)
+- [OpenJDK 12](http://www.planetjdk.org/projects/jdk/)
 
 ## License
 
