@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.10'
+//    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 group 'com.nesp.sdk'
@@ -22,15 +22,15 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-application {
-    mainModule = 'com.nesp.sdk.javafx'
-    mainClass = 'com.nesp.sdk.javafx.HelloApplication'
-}
+//application {
+//    mainModule = 'com.nesp.sdk.javafx'
+//    mainClass = 'com.nesp.sdk.javafx.HelloApplication'
+//}
 
-javafx {
-    version = '16'
-    modules = ['javafx.controls', 'javafx.fxml']
-}
+//javafx {
+//    version = '16'
+//    modules = ['javafx.controls', 'javafx.fxml']
+//}
 
 dependencies {
 
