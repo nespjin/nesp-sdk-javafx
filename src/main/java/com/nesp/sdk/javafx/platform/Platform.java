@@ -1,6 +1,6 @@
 package com.nesp.sdk.javafx.platform;
 
-import com.nesp.sdk.javafx.java.utils.Log;
+import com.nesp.sdk.javafx.utils.Log;
 
 import java.lang.reflect.Method;
 

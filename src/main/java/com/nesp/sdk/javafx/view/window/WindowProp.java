@@ -1,6 +1,6 @@
 package com.nesp.sdk.javafx.view.window;
 
-import com.nesp.sdk.javafx.java.device.Screen;
+import com.nesp.sdk.javafx.device.Screen;
 
 /**
  * ProjectName: NespManager

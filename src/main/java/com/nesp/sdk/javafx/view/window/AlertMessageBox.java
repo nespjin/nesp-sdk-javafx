@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import static com.nesp.sdk.javafx.java.utils.ControllerUtils.bindHeightAndWidth;
+import static com.nesp.sdk.javafx.utils.ControllerUtils.bindHeightAndWidth;
 
 /**
  * ProjectName: Movie_JavaFx_Destop

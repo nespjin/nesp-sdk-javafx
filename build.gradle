@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'application'
-//    id 'org.openjfx.javafxplugin' version '0.0.10'
+//    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 group 'com.nesp.sdk'
@@ -27,15 +27,14 @@ tasks.withType(JavaCompile) {
 //    mainClass = 'com.nesp.sdk.javafx.HelloApplication'
 //}
 
-//javafx {
-//    version = '16'
-//    modules = ['javafx.controls', 'javafx.fxml']
-//}
+javafx {
+    version = '16'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
 
 dependencies {
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
 test {
