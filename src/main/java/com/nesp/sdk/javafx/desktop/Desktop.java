@@ -1,4 +1,4 @@
-package com.nesp.sdk.javafx.java.desktop;
+package com.nesp.sdk.javafx.desktop;
 
 import java.lang.reflect.Method;
 

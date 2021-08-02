@@ -1,4 +1,4 @@
-package com.nesp.sdk.javafx.java.platform;
+package com.nesp.sdk.javafx.platform;
 
 import com.nesp.sdk.javafx.java.utils.Log;
 

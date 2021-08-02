@@ -1,4 +1,4 @@
-package com.nesp.sdk.javafx.java.view.window;
+package com.nesp.sdk.javafx.view.window;
 
 import com.nesp.sdk.javafx.java.device.Screen;
 

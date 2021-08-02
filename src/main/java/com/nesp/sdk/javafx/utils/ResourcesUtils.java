@@ -15,7 +15,7 @@
  *
  */
 
-package com.nesp.sdk.javafx.java.utils;
+package com.nesp.sdk.javafx.utils;
 
 import javafx.scene.image.Image;
 import javafx.stage.Stage;

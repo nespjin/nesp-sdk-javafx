@@ -15,7 +15,7 @@
  *
  */
 
-package com.nesp.sdk.javafx.java.device;
+package com.nesp.sdk.javafx.device;
 
 public class Screen {
 

@@ -15,7 +15,7 @@
  *
  */
 
-package com.nesp.sdk.javafx.java.utils;
+package com.nesp.sdk.javafx.utils;
 
 public class Log {
 
