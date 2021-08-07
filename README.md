@@ -5,6 +5,7 @@ Nesp software development kit for JavaFx
 
 - [JavaFx 16](https://openjfx.io/)
 - [OpenJDK 16](http://www.planetjdk.org/projects/jdk/)
+- [nesp-sdk-java](https://github.com/nespjin/nesp-sdk-java)
 
 ## License
 

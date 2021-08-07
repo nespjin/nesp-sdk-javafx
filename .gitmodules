@@ -1,0 +1,3 @@
+[submodule "nesp-sdk-java"]
+	path = nesp-sdk-java
+	url = https://github.com/nespjin/nesp-sdk-java.git
