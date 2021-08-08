@@ -1,9 +1,14 @@
+/*
 plugins {
     id 'java'
 //    id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.10'
-//    id 'org.openjfx.javafxplugin'
+//    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.openjfx.javafxplugin'
 }
+*/
+
+apply plugin: 'java'
+apply plugin: 'org.openjfx.javafxplugin'
 
 group 'com.nesp.sdk'
 version '1.0-SNAPSHOT'
@@ -40,7 +45,7 @@ javafx {
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:20.1.0'
+    implementation 'org.jetbrains:annotations:21.0.1'
     implementation project(':nesp-sdk-java')
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
