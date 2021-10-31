@@ -20,6 +20,7 @@ package com.nesp.sdk.javafx.utils;
 
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class MouseEventUtils {
 
@@ -30,9 +31,9 @@ public class MouseEventUtils {
      * 鼠标点击拖拽窗口
      *
      * @param node  拖拽节点
-     * @param stage 窗口
+     * @param window 窗口
      */
-    public static void setDragToMove(Node node, Stage stage) {
+    public static void setDragToMove(Node node, Window window) {
 
         node.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -40,8 +41,8 @@ public class MouseEventUtils {
         });
 
         node.setOnMouseDragged(event -> {
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
+            window.setX(event.getScreenX() - xOffset);
+            window.setY(event.getScreenY() - yOffset);
         });
     }
 }
