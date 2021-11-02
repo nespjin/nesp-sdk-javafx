@@ -1,6 +1,7 @@
 package com.nesp.sdk.javafx.utils;
 
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Team: NESP Technology
@@ -10,5 +11,5 @@ import javafx.scene.Node;
  * Description:
  **/
 public interface OnItemClickListener<T> {
-    void onItemClick(Node owner, T item, int position);
+    void onItemClick(Node owner, final MouseEvent event, T item, int position);
 }
