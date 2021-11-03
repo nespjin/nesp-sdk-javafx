@@ -16,7 +16,7 @@ public final class LocalBroadcastManager {
 
     private static volatile LocalBroadcastManager sInstance;
 
-    private final Map<BroadcastReceiver, IntentFilter> mRegisterData;
+    private final WeakHashMap<BroadcastReceiver, IntentFilter> mRegisterData;
 
     private final Queue<Intent> mSentIntentQueue;
     private final DispatchIntentRunnable mDispatchIntentRunnable;
@@ -33,7 +33,7 @@ public final class LocalBroadcastManager {
     }
 
     private LocalBroadcastManager() {
-        mRegisterData = new HashMap<>();
+        mRegisterData = new WeakHashMap<>();
         mSentIntentQueue = new LinkedList<>();
         mDispatchIntentRunnable = new DispatchIntentRunnable(mSentIntentQueue, mRegisterData);
     }
