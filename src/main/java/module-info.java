@@ -11,4 +11,6 @@ module com.nesp.sdk.javafx {
 
     opens com.nesp.sdk.javafx to javafx.fxml;
     exports com.nesp.sdk.javafx;
+    exports com.nesp.sdk.javafx.lifecycle;
+    exports com.nesp.sdk.javafx.content;
 }
