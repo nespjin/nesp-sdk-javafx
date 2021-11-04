@@ -77,4 +77,8 @@ public abstract class BaseScene extends SceneContext {
     public Node $(String id) {
         return lookup("#" + id);
     }
+
+    public void onBindController(final Object controller) {
+
+    }
 }

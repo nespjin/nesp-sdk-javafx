@@ -73,7 +73,7 @@ public abstract class ControllerContext extends ContextWrapper implements Initia
 
     @Override
     public void destroy() {
-
+        onDestroy();
     }
 
     @Override

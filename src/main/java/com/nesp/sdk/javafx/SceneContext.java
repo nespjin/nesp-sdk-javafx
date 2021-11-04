@@ -46,7 +46,7 @@ public abstract class SceneContext extends Scene implements Context {
         initialize();
     }
 
-    private void initialize() {
+    protected void initialize() {
         mContextWrapper = new ContextWrapper();
     }
 
