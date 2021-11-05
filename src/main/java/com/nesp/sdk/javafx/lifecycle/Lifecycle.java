@@ -39,6 +39,9 @@ public interface Lifecycle {
      */
     void onAttachScene(final Scene scene, final Window window);
 
+    /**
+     * Call when destroy called.
+     */
     void onDestroy();
 
 }

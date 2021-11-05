@@ -1,9 +1,10 @@
 package com.nesp.sdk.javafx.lifecycle;
 
 import com.nesp.sdk.javafx.concurrent.ThreadDispatcher;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -23,12 +24,13 @@ public final class LifecycleObserver {
     public static void observe(final Node node,
                                final Lifecycle lifecycle) {
         Objects.requireNonNull(node);
-        node.sceneProperty().addListener(new InvalidationListener() {
+        node.sceneProperty().addListener(new ChangeListener<Scene>() {
             @Override
-            public void invalidated(final Observable observable) {
+            public void changed(final ObservableValue<? extends Scene> observable,
+                                final Scene oldValue, final Scene newValue) {
                 if (lifecycle != null) {
                     ThreadDispatcher.getInstance().runOnUIThread(() ->
-                            lifecycle.onAttachScene(node.getScene(), node.getScene().getWindow()));
+                            lifecycle.onAttachScene(node.getScene(), newValue.getWindow()));
                 }
                 node.sceneProperty().removeListener(this);
             }
