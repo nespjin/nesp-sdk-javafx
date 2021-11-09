@@ -1,5 +1,7 @@
 package com.nesp.sdk.javafx.concurrent;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
 import javafx.application.Platform;
 
 import java.util.Timer;
@@ -14,14 +16,15 @@ import java.util.concurrent.Executors;
  * Project: PasswordManagerJavaFx
  * Description:
  **/
-public final class ThreadDispatcher {
+public final class ThreadDispatcher implements IThreadDispatcher {
 
     @SuppressWarnings("unused")
     private static final String TAG = "ThreadManager";
 
-    private final ExecutorService mIOThreadPool = Executors.newCachedThreadPool();
+    private final ExecutorService mIOThreadPool =
+            MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
     private final ExecutorService mIODaemonThreadPool =
-            Executors.newCachedThreadPool(new DaemonThreadFactory());
+            MoreExecutors.listeningDecorator(Executors.newCachedThreadPool(new DaemonThreadFactory()));
 
     private static volatile ThreadDispatcher sInstance;
 
@@ -39,26 +42,32 @@ public final class ThreadDispatcher {
     private ThreadDispatcher() {
     }
 
-    public void runOnIOThread(final Runnable runnable) {
-        runOnIOThread(false, runnable);
+    @Override
+    public <R> ListenableFuture<R> runOnIOThread(final Runnable runnable) {
+        return runOnIOThread(false, runnable);
     }
 
-    public void runOnDaemonIOThread(final Runnable runnable) {
-        runOnIOThread(true, runnable);
+    @Override
+    public <R> ListenableFuture<R> runOnDaemonIOThread(final Runnable runnable) {
+        return runOnIOThread(true, runnable);
     }
 
-    public void runOnIOThread(boolean isDaemon, final Runnable runnable) {
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R> ListenableFuture<R> runOnIOThread(boolean isDaemon, final Runnable runnable) {
         if (isDaemon) {
-            mIODaemonThreadPool.submit(runnable);
+            return (ListenableFuture<R>) mIODaemonThreadPool.submit(runnable);
         } else {
-            mIOThreadPool.submit(runnable);
+            return (ListenableFuture<R>) mIOThreadPool.submit(runnable);
         }
     }
 
+    @Override
     public void runOnUIThread(final Runnable runnable) {
         Platform.runLater(runnable);
     }
 
+    @Override
     public void runOnUIThreadDelay(final long delay, final Runnable runnable) {
         new Timer(true).schedule(new TimerTask() {
             @Override

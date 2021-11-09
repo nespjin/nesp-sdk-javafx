@@ -1,5 +1,7 @@
 package com.nesp.sdk.javafx;
 
+import com.nesp.sdk.javafx.concurrent.IThreadDispatcher;
+
 /**
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
@@ -7,7 +9,7 @@ package com.nesp.sdk.javafx;
  * Project: JavaFx SDK
  * Description:
  **/
-public interface Context {
+public interface Context extends IThreadDispatcher {
 
     Resource getResource();
 
@@ -15,4 +17,5 @@ public interface Context {
 
     String getPackageName();
 
+    IThreadDispatcher newThreadDispatcher();
 }

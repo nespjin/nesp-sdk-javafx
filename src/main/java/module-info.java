@@ -8,9 +8,11 @@ module com.nesp.sdk.javafx {
     requires java.desktop;
     requires commons.math3;
     requires com.nesp.sdk.java;
+    requires guava;
 
     opens com.nesp.sdk.javafx to javafx.fxml;
     exports com.nesp.sdk.javafx;
+    exports com.nesp.sdk.javafx.concurrent;
     exports com.nesp.sdk.javafx.lifecycle;
     exports com.nesp.sdk.javafx.content;
 }

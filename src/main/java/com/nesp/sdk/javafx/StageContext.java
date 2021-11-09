@@ -1,5 +1,7 @@
 package com.nesp.sdk.javafx;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.nesp.sdk.javafx.concurrent.IThreadDispatcher;
 import com.nesp.sdk.javafx.lifecycle.Lifecycle;
 import com.nesp.sdk.javafx.lifecycle.LifecycleOwner;
 import javafx.scene.Node;
@@ -74,5 +76,34 @@ public abstract class StageContext extends Stage implements Context, Lifecycle, 
         return mContextWrapper.getPackageName();
     }
 
+    @Override
+    public IThreadDispatcher newThreadDispatcher() {
+        return mContextWrapper.newThreadDispatcher();
+    }
+
+    @Override
+    public <R> ListenableFuture<R> runOnIOThread(final Runnable runnable) {
+        return mContextWrapper.runOnIOThread(runnable);
+    }
+
+    @Override
+    public <R> ListenableFuture<R> runOnDaemonIOThread(final Runnable runnable) {
+        return mContextWrapper.runOnDaemonIOThread(runnable);
+    }
+
+    @Override
+    public <R> ListenableFuture<R> runOnIOThread(final boolean isDaemon, final Runnable runnable) {
+        return mContextWrapper.runOnIOThread(isDaemon, runnable);
+    }
+
+    @Override
+    public void runOnUIThread(final Runnable runnable) {
+        mContextWrapper.runOnUIThread(runnable);
+    }
+
+    @Override
+    public void runOnUIThreadDelay(final long delay, final Runnable runnable) {
+        mContextWrapper.runOnUIThreadDelay(delay, runnable);
+    }
 
 }
