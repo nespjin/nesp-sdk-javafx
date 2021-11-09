@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
  * Time: Created 2021/10/30 20:31
- * Project: PasswordManagerJavaFx
  * Description:
  **/
 public final class ThreadDispatcher implements IThreadDispatcher {

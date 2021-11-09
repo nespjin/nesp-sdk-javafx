@@ -1,6 +1,5 @@
 package com.nesp.sdk.javafx.concurrent;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -8,7 +7,6 @@ import java.util.WeakHashMap;
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
  * Time: Created 2021/11/8 下午2:07
- * Project: PasswordManagerJavaFx
  * Description:
  **/
 public abstract class WorkRunnable<P, W> implements Runnable {

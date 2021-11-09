@@ -11,7 +11,6 @@ import java.io.IOException;
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
  * Time: Created 2021/10/30 14:20
- * Project: PasswordManagerJavaFx
  * Description:
  **/
 public abstract class ViewContext extends AnchorPane implements Context {

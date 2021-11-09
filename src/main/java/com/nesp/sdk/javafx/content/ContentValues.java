@@ -8,7 +8,6 @@ import java.util.*;
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
  * Time: Created 2021/10/29 下午9:30
- * Project: PasswordManagerJavaFx
  * Description:
  **/
 public final class ContentValues {

@@ -2,8 +2,6 @@ package com.nesp.sdk.javafx.platform;
 
 import com.nesp.sdk.javafx.utils.Log;
 
-import java.lang.reflect.Method;
-
 /**
  * ProjectName: NespManager
  * Author: jinzhaolu

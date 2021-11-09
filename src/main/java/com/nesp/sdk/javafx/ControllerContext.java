@@ -7,6 +7,7 @@ import com.nesp.sdk.javafx.content.LocalBroadcastManager;
 import com.nesp.sdk.javafx.lifecycle.Lifecycle;
 import com.nesp.sdk.javafx.lifecycle.LifecycleObserver;
 import com.nesp.sdk.javafx.lifecycle.LifecycleOwner;
+import com.nesp.sdk.javafx.utils.WindowDragHelper;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;

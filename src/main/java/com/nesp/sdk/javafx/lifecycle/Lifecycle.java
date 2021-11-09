@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
  * Time: Created 2021/11/3 20:59
- * Project: PasswordManagerJavaFx
  * Description:
  * lifecycle as below:
  * {@link Initializable#initialize(URL, ResourceBundle)}

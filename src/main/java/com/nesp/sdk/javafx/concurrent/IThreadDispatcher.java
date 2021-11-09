@@ -6,7 +6,6 @@ import com.google.common.util.concurrent.ListenableFuture;
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
  * Time: Created 2021/11/8 下午1:50
- * Project: PasswordManagerJavaFx
  * Description:
  **/
 public interface IThreadDispatcher {

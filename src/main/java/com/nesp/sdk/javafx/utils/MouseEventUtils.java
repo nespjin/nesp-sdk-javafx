@@ -19,7 +19,6 @@ package com.nesp.sdk.javafx.utils;
 
 
 import javafx.scene.Node;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class MouseEventUtils {

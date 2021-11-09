@@ -14,7 +14,6 @@ import javafx.stage.Window;
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
  * Time: Created 2021/8/29 12:15
- * Project: PasswordManagerJavaFx
  * Description:
  **/
 public abstract class StageContext extends Stage implements Context, Lifecycle, LifecycleOwner {

@@ -8,7 +8,6 @@ import javafx.stage.Window;
  * Team: NESP Technology
  * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
  * Time: Created 2021/11/3 21:18
- * Project: PasswordManagerJavaFx
  * Description:
  **/
 public class LifecycleAdapter implements Lifecycle {
