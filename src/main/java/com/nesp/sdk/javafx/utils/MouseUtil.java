@@ -21,7 +21,7 @@ package com.nesp.sdk.javafx.utils;
 import javafx.scene.Node;
 import javafx.stage.Window;
 
-public class MouseEventUtils {
+public class MouseUtil {
 
     private static double xOffset = 0;
     private static double yOffset = 0;

@@ -20,6 +20,7 @@ package com.nesp.sdk.javafx.utils;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+@Deprecated
 public class ResourcesUtils {
 
     public static Image getImageByStream(Object controller, String path) {
