@@ -8,7 +8,8 @@ module com.nesp.sdk.javafx {
     requires java.desktop;
     requires commons.math3;
     requires com.nesp.sdk.java;
-    requires guava;
+    requires org.json;
+    requires java.sql;
 
     opens com.nesp.sdk.javafx to javafx.fxml;
     exports com.nesp.sdk.javafx;

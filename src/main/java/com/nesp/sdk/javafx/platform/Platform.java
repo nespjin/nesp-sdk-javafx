@@ -1,36 +1,14 @@
 package com.nesp.sdk.javafx.platform;
 
-import com.nesp.sdk.javafx.utils.Log;
-
 /**
- * ProjectName: NespManager
- * Author: jinzhaolu
- * Date: 19-2-15
- * Time: 上午2:44
- * FileName: Platform
- * <p>
+ * Team: NESP Technology
+ * Author: <a href="mailto:1756404649@qq.com">JinZhaolu Email:1756404649@qq.com</a>
+ * Time: Created 2021/11/13 下午9:16
  * Description:
- */
-public class Platform {
-
-    public static Platforms getPlatformName() throws ClassNotFoundException, NoSuchMethodException {
-        String osName = System.getProperty("os.name", "");
-        Log.print(osName);
-        if (osName.startsWith("Mac OS")) {
-            return Platforms.MAC_OSX;
-        } else if (osName.startsWith("Windows")) {
-            return Platforms.WINDOWS;
-        } else if (osName.startsWith("Linux")) {
-            return Platforms.LINUX;
-        } else {
-            return Platforms.UNKNOWN;
-        }
-    }
-
-    public enum Platforms {
-        WINDOWS,
-        MAC_OSX,
-        LINUX,
-        UNKNOWN;
-    }
+ **/
+public enum Platform {
+    WINDOWS,
+    MAC_OSX,
+    LINUX,
+    UNKNOWN;
 }
