@@ -11,6 +11,8 @@ import com.nesp.sdk.javafx.utils.WindowDragHelper;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 import javafx.stage.Window;
 
 import java.net.URL;
