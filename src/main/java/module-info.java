@@ -10,6 +10,7 @@ module com.nesp.sdk.javafx {
     requires com.nesp.sdk.java;
     requires org.json;
     requires java.sql;
+    requires com.google.common;
 
     opens com.nesp.sdk.javafx to javafx.fxml;
     exports com.nesp.sdk.javafx;
