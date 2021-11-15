@@ -15,6 +15,7 @@ import java.util.*;
  * Description:
  **/
 public abstract class Database {
+    public static boolean sLogEnable = false;
     private static final String TAG = "Database";
 
     /**
@@ -377,8 +378,10 @@ public abstract class Database {
 
     public boolean execWithArgs(final String sql, final String[] selectionArgs) {
         checkThreadAndConnection();
-        Log.i(TAG, "execWithArgs: SQL = " + sql + " selectionArgs = " +
-                Arrays.toString(selectionArgs));
+        if (sLogEnable) {
+            Log.i(TAG, "execWithArgs: SQL = " + sql + " selectionArgs = " +
+                    Arrays.toString(selectionArgs));
+        }
         try {
             final PreparedStatement statement = mConnection.prepareStatement(sql);
             for (int i = 0; i < selectionArgs.length; i++) {
@@ -394,7 +397,7 @@ public abstract class Database {
 
     public boolean exec(final String sql) throws SQLException {
         checkThreadAndConnection();
-        Log.i(TAG, "exec: SQL = " + sql);
+        if (sLogEnable) Log.i(TAG, "exec: SQL = " + sql);
         final Statement statement = mConnection.createStatement();
         statement.closeOnCompletion();
         return statement.execute(sql);
@@ -423,7 +426,7 @@ public abstract class Database {
 
     public int execUpdateWithArgs(final String sql, final String[] selectionArgs) {
         checkThreadAndConnection();
-        Log.i(TAG, "execUpdateWithArgs: SQL = " + sql + " selectionArgs = " +
+        if (sLogEnable) Log.i(TAG, "execUpdateWithArgs: SQL = " + sql + " selectionArgs = " +
                 Arrays.toString(selectionArgs));
         try {
             final PreparedStatement statement = mConnection.prepareStatement(sql);
@@ -440,7 +443,7 @@ public abstract class Database {
 
     public int execUpdate(final String sql) {
         checkThreadAndConnection();
-        Log.i(TAG, "execUpdate: SQL = " + sql);
+        if (sLogEnable) Log.i(TAG, "execUpdate: SQL = " + sql);
         try {
             final Statement statement = mConnection.createStatement();
             statement.closeOnCompletion();
@@ -490,7 +493,7 @@ public abstract class Database {
                                           final int[] columnIndexes,
                                           final String[] columnNames) {
         checkThreadAndConnection();
-        Log.i(TAG, "execQuery: SQL = " + sql + ",args = " + Arrays.toString(args));
+        if (sLogEnable) Log.i(TAG, "execQuery: SQL = " + sql + ",args = " + Arrays.toString(args));
         try {
             final PreparedStatement statement;
             if (columnIndexes != null && columnIndexes.length > 0) {
@@ -516,7 +519,7 @@ public abstract class Database {
 
     public Optional<ResultSet> execQuery(final String sql) {
         checkThreadAndConnection();
-        Log.i(TAG, "execQuery: SQL = " + sql);
+        if (sLogEnable) Log.i(TAG, "execQuery: SQL = " + sql);
         try {
             final Statement statement = mConnection.createStatement();
             statement.closeOnCompletion();
