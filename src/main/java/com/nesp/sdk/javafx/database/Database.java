@@ -96,7 +96,10 @@ public abstract class Database {
                     System.out.println("Database file create failed");
                 }
             }
-            mConnection = DriverManager.getConnection("jdbc:sqlite:" + getPath());
+
+            final Properties properties = new Properties();
+            properties.put("key", "N32c&Io!*6z7S4&4DE");
+            mConnection = DriverManager.getConnection("jdbc:sqlite:" + getPath(), properties);
             final Thread databaseInitializeThread = new Thread(exists ? this::checkWhenInitialize : this::create);
             databaseInitializeThread.setDaemon(true);
             databaseInitializeThread.start();
