@@ -51,7 +51,7 @@ public final class LifecycleObserver {
     }
 
     public static void observe(final Stage stage,
-                               final Lifecycle owner) {
+                               final Lifecycle lifecycle) {
         ThreadDispatcher.getInstance().runOnIOThread(() -> {
             while (stage.getScene() == null) {
                 try {
@@ -60,9 +60,9 @@ public final class LifecycleObserver {
                     e.printStackTrace();
                 }
             }
-            if (owner != null) {
+            if (lifecycle != null) {
                 ThreadDispatcher.getInstance().runOnUIThread(() ->
-                        owner.onAttachScene(stage.getScene(),
+                        lifecycle.onAttachScene(stage.getScene(),
                                 stage.getScene().getWindow()));
             }
         });

@@ -1,18 +1,16 @@
 package com.nesp.sdk.javafx;
 
 import com.nesp.sdk.java.annotation.NonNull;
+import com.nesp.sdk.java.lang.AppObjRecycleWatcher;
 import com.nesp.sdk.javafx.content.BroadcastReceiver;
 import com.nesp.sdk.javafx.content.IntentFilter;
 import com.nesp.sdk.javafx.content.LocalBroadcastManager;
 import com.nesp.sdk.javafx.lifecycle.Lifecycle;
 import com.nesp.sdk.javafx.lifecycle.LifecycleObserver;
 import com.nesp.sdk.javafx.lifecycle.LifecycleOwner;
-import com.nesp.sdk.javafx.utils.WindowDragHelper;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.paint.Color;
 import javafx.stage.Window;
 
 import java.net.URL;
@@ -47,7 +45,7 @@ public abstract class ControllerContext extends ContextWrapper implements Initia
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-
+        AppObjRecycleWatcher.getSingleton().observeIfStarted(this);
     }
 
 

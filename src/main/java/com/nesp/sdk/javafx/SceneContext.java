@@ -1,6 +1,7 @@
 package com.nesp.sdk.javafx;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.nesp.sdk.java.lang.AppObjRecycleWatcher;
 import com.nesp.sdk.javafx.concurrent.IThreadDispatcher;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -49,6 +50,7 @@ public abstract class SceneContext extends Scene implements Context {
 
     protected void initialize() {
         mContextWrapper = new ContextWrapper();
+        AppObjRecycleWatcher.getSingleton().observeIfStarted(this);
     }
 
     @Override

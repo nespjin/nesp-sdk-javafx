@@ -1,6 +1,7 @@
 package com.nesp.sdk.javafx;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.nesp.sdk.java.lang.AppObjRecycleWatcher;
 import com.nesp.sdk.javafx.concurrent.IThreadDispatcher;
 import com.nesp.sdk.javafx.lifecycle.Lifecycle;
 import com.nesp.sdk.javafx.lifecycle.LifecycleOwner;
@@ -31,8 +32,9 @@ public abstract class StageContext extends Stage implements Context, Lifecycle, 
         initialize();
     }
 
-    private void initialize(){
+    private void initialize() {
         mContextWrapper = new ContextWrapper();
+        AppObjRecycleWatcher.getSingleton().observeIfStarted(this);
     }
 
     @Override

@@ -1,9 +1,18 @@
 package com.nesp.sdk.javafx;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.nesp.sdk.java.lang.AppObjRecycleWatcher;
 import com.nesp.sdk.javafx.concurrent.IThreadDispatcher;
+import com.nesp.sdk.javafx.content.BroadcastReceiver;
+import com.nesp.sdk.javafx.content.IntentFilter;
+import com.nesp.sdk.javafx.content.LocalBroadcastManager;
+import com.nesp.sdk.javafx.lifecycle.Lifecycle;
+import com.nesp.sdk.javafx.lifecycle.LifecycleObserver;
+import com.nesp.sdk.javafx.lifecycle.LifecycleOwner;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -13,7 +22,8 @@ import java.io.IOException;
  * Time: Created 2021/10/30 14:20
  * Description:
  **/
-public abstract class ViewContext extends AnchorPane implements Context {
+public abstract class ViewContext extends AnchorPane implements Context,
+        Lifecycle, LifecycleOwner {
 
     private static final String TAG = "ViewContext";
 
@@ -44,6 +54,7 @@ public abstract class ViewContext extends AnchorPane implements Context {
 
     private void initialize() {
         mContextWrapper = new ContextWrapper();
+        AppObjRecycleWatcher.getSingleton().observeIfStarted(this);
     }
 
     public Node getRootNode() {
@@ -95,4 +106,38 @@ public abstract class ViewContext extends AnchorPane implements Context {
         mContextWrapper.runOnUIThreadDelay(delay, runnable);
     }
 
+    @Override
+    public final void onCreate(final Node root) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onAttachScene(final Scene scene, final Window window) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
+
+    @Override
+    public void observe(final Node node) {
+        LifecycleObserver.observe(node, this);
+    }
+
+    @Override
+    public void destroy() {
+        onDestroy();
+    }
+
+
+    public void registerLocalBroadcastReceiver(final BroadcastReceiver receiver,
+                                               final IntentFilter filter) {
+        LocalBroadcastManager.getInstance().registerReceiver(receiver, filter);
+    }
+
+    public void unregisterLocalBroadcastReceiver(final BroadcastReceiver receiver) {
+        LocalBroadcastManager.getInstance().unregisterReceiver(receiver);
+    }
 }
