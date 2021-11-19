@@ -3,8 +3,8 @@ Nesp software development kit for JavaFx
 
 ## Dependency
 
-- [JavaFx 16](https://openjfx.io/)
-- [OpenJDK 16](http://www.planetjdk.org/projects/jdk/)
+- [JavaFx 17.0.1](https://openjfx.io/)
+- [OpenJDK 17.0.1](http://www.planetjdk.org/projects/jdk/)
 - [nesp-sdk-java](https://github.com/nespjin/nesp-sdk-java)
 
 ## License
