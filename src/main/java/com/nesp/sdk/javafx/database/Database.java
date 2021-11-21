@@ -81,7 +81,7 @@ public abstract class Database {
     private Connection mConnection;
     private boolean mIsConnectWhenExecSQL = false;
 
-    private static final String DATABASE_INFO_TABLE_NAME = "database_info";
+    private static final String META_TABLE_NAME = "meta";
 
     public Database(final String path) {
         mPath = path;
@@ -111,7 +111,7 @@ public abstract class Database {
     }
 
     private void checkWhenInitialize() {
-        final Optional<ResultSet> resultSet = execQuery("SELECT * FROM " + DATABASE_INFO_TABLE_NAME);
+        final Optional<ResultSet> resultSet = execQuery("SELECT * FROM " + META_TABLE_NAME);
         int oldVersion = -1;
         if (resultSet.isPresent()) {
             try {
@@ -127,7 +127,7 @@ public abstract class Database {
 
             if (getVersion() > oldVersion && oldVersion >= 0) {
                 if (upgrade(oldVersion, getVersion())) {
-                    execUpdate(" UPDATE " + DATABASE_INFO_TABLE_NAME +
+                    execUpdate(" UPDATE " + META_TABLE_NAME +
                             " SET `value`=" + getVersion() + " WHERE `key`=\"version\"");
                 }
             }
@@ -143,10 +143,10 @@ public abstract class Database {
     }
 
     private void initializeDatabaseInfoTable() {
-        final String databaseInfoTableName = DATABASE_INFO_TABLE_NAME;
+        final String metaTableName = META_TABLE_NAME;
         // create database info table
         final String sqlCreateDatabaseInfoTable =
-                "CREATE TABLE IF NOT EXISTS " + databaseInfoTableName + "(" +
+                "CREATE TABLE IF NOT EXISTS " + metaTableName + "(" +
                         "id INTEGER PRIMARY KEY, " +
                         "key TEXT NOT NULL DEFAULT \"\" UNIQUE," +
                         "value  TEXT NOT NULL DEFAULT \"\"" +
@@ -157,7 +157,7 @@ public abstract class Database {
         final ContentValues contentValuesDatabaseInfo = new ContentValues();
         contentValuesDatabaseInfo.put("key", "version");
         contentValuesDatabaseInfo.put("value", String.valueOf(getVersion()));
-        insert(databaseInfoTableName, contentValuesDatabaseInfo);
+        insert(metaTableName, contentValuesDatabaseInfo);
     }
 
     private boolean upgrade(int oldVersion, int newVersion) {
