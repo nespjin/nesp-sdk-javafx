@@ -5,6 +5,7 @@ import com.nesp.sdk.javafx.content.ContentValues;
 import javafx.application.Platform;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
@@ -77,19 +78,19 @@ public abstract class Database {
     private static final String[] CONFLICT_VALUES = new String[]
             {"", " OR ROLLBACK ", " OR ABORT ", " OR FAIL ", " OR IGNORE ", " OR REPLACE "};
 
-    private final String mPath;
+    private final String mDatabasePath;
     private Connection mConnection;
     private boolean mIsConnectWhenExecSQL = false;
 
     private static final String META_TABLE_NAME = "meta";
 
     public Database(final String path) {
-        mPath = path;
+        mDatabasePath = path;
     }
 
     public boolean connect() {
         try {
-            final File file = new File(getPath());
+            final File file = new File(getDatabasePath());
             final boolean exists = file.exists();
             if (!file.getParentFile().exists()) {
                 if (!file.getParentFile().mkdirs()) {
@@ -97,14 +98,20 @@ public abstract class Database {
                 }
             }
 
+            if (!exists) {
+                if (!file.createNewFile()) {
+                    System.out.println("Database file create failed");
+                }
+            }
+
             final Properties properties = new Properties();
             properties.put("key", "N32c&Io!*6z7S4&4DE");
-            mConnection = DriverManager.getConnection("jdbc:sqlite:" + getPath(), properties);
+            mConnection = DriverManager.getConnection("jdbc:sqlite:" + getDatabasePath(), properties);
             final Thread databaseInitializeThread = new Thread(exists ? this::checkWhenInitialize : this::create);
             databaseInitializeThread.setDaemon(true);
             databaseInitializeThread.start();
             return true;
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -210,7 +217,7 @@ public abstract class Database {
             throw new RuntimeException("Not allow run sql in UI Thread");
         }
         if (!isConnected()) {
-            throw new IllegalStateException("Database(" + getPath() + ") is not connected");
+            throw new IllegalStateException("Database(" + getDatabasePath() + ") is not connected");
         }
     }
 
@@ -284,6 +291,9 @@ public abstract class Database {
                 initialValues == null || initialValues.isEmpty()) {
             return -1;
         }
+
+        final List<String> args = new ArrayList<>();
+
         final StringBuilder sql = new StringBuilder();
         sql.append("INSERT");
         sql.append(CONFLICT_VALUES[conflictAlgorithm]);
@@ -293,7 +303,6 @@ public abstract class Database {
 
         final StringBuilder sqlColumnNamesSb = new StringBuilder();
         final StringBuilder sqlColumnValueSb = new StringBuilder();
-        final StringBuilder sqlColumnValueSbValue = new StringBuilder();
         initialValues.getValues().forEach((columnName, value) -> {
             if (!sqlColumnNamesSb.isEmpty()) {
                 sqlColumnNamesSb.append(",");
@@ -305,15 +314,12 @@ public abstract class Database {
             }
             sqlColumnValueSb.append("?");
 
-            if (!sqlColumnValueSbValue.isEmpty()) {
-                sqlColumnValueSbValue.append(",");
-            }
-            sqlColumnValueSbValue.append(value == null ? nullColumnHack : value);
+            args.add(value == null ? nullColumnHack : String.valueOf(value));
         });
         sql.append(" (").append(sqlColumnNamesSb).append(") ");
         sql.append("VALUES");
         sql.append(" (").append(sqlColumnValueSb).append("); ");
-        return execUpdateWithArgs(sql.toString(), sqlColumnValueSbValue.toString().split(","));
+        return execUpdateWithArgs(sql.toString(), args.toArray(new String[0]));
     }
 
     public int update(final String table, final ContentValues values,
@@ -542,8 +548,8 @@ public abstract class Database {
         return mConnection;
     }
 
-    public String getPath() {
-        return mPath;
+    public String getDatabasePath() {
+        return mDatabasePath;
     }
 
     public Database setConnectWhenExecSQL(final boolean connectWhenExecSQL) {
