@@ -17,6 +17,7 @@
 
 package com.nesp.sdk.javafx.utils;
 
+@Deprecated
 public class Log {
 
     public static void print(String message) {

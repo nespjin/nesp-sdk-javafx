@@ -1,7 +1,5 @@
 package com.nesp.sdk.javafx.platform;
 
-import com.nesp.sdk.javafx.utils.Log;
-
 /**
  * ProjectName: NespManager
  * Author: jinzhaolu
@@ -14,8 +12,7 @@ import com.nesp.sdk.javafx.utils.Log;
 public class PlatformUtil {
 
     public static Platform getPlatform() {
-        String osName = System.getProperty("os.name", "");
-        Log.print(osName);
+        final String osName = System.getProperty("os.name", "");
         if (osName.startsWith("Mac OS")) {
             return Platform.MAC_OSX;
         } else if (osName.startsWith("Windows")) {
