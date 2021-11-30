@@ -64,7 +64,7 @@ public class Resource {
         return tryLoadFxml(fxmlFileName, newStringResourceBundle());
     }
 
-    private static ResourceBundle newStringResourceBundle() {
+    public static ResourceBundle newStringResourceBundle() {
         return ResourceBundle.getBundle("strings/strings");
     }
 
@@ -73,10 +73,21 @@ public class Resource {
         return tryLoadFxml(fxmlFileName, resourceBundle, null, null);
     }
 
+    public static <T> T tryLoadFxmlWithController(@NotNull String fxmlFileName,
+                                                  @NotNull ResourceBundle resourceBundle,
+                                                  @Nullable Object controller) throws IOException {
+        return tryLoadFxml(fxmlFileName, resourceBundle, null, controller);
+    }
+
     public static <T> T tryLoadFxml(@NotNull String fxmlFileName,
                                     @NotNull ResourceBundle resourceBundle,
                                     @Nullable Object root) throws IOException {
         return tryLoadFxml(fxmlFileName, resourceBundle, root, null);
+    }
+
+    public static <T> T tryLoadFxmlWithController(@NotNull String fxmlFileName,
+                                                  @Nullable Object controller) throws IOException {
+        return tryLoadFxml(fxmlFileName, newStringResourceBundle(), null, controller);
     }
 
     public static <T> T tryLoadFxml(@NotNull String fxmlFileName,
@@ -110,13 +121,17 @@ public class Resource {
 
     public static FXMLLoader newFXMLLoader(@NotNull String fxmlFileName,
                                            @NotNull ResourceBundle resourceBundle) {
+        final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        return new FXMLLoader(Objects.requireNonNull(
+                contextClassLoader.getResource(fxmlFilePath(fxmlFileName))),
+                resourceBundle);
+    }
+
+    public static String fxmlFilePath(@NotNull String fxmlFileName) {
         if (!fxmlFileName.endsWith(".fxml")) {
             fxmlFileName = fxmlFileName.concat(".fxml");
         }
-        final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-        return new FXMLLoader(Objects.requireNonNull(
-                contextClassLoader.getResource("layout/".concat(fxmlFileName))),
-                resourceBundle);
+        return "layout/".concat(fxmlFileName);
     }
 
     public AssetsManager getAssets() {

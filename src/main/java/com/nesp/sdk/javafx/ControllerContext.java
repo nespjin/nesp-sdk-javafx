@@ -5,9 +5,9 @@ import com.nesp.sdk.java.lang.AppObjRecycleWatcher;
 import com.nesp.sdk.javafx.content.BroadcastReceiver;
 import com.nesp.sdk.javafx.content.IntentFilter;
 import com.nesp.sdk.javafx.content.LocalBroadcastManager;
-import com.nesp.sdk.javafx.lifecycle.Lifecycle;
-import com.nesp.sdk.javafx.lifecycle.LifecycleObserver;
-import com.nesp.sdk.javafx.lifecycle.LifecycleOwner;
+import com.nesp.sdk.javafx.lifecycle.ControllerLifecycle;
+import com.nesp.sdk.javafx.lifecycle.ControllerLifecycleObserver;
+import com.nesp.sdk.javafx.lifecycle.ControllerLifecycleOwner;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,10 +27,11 @@ import java.util.ResourceBundle;
  * Controller for FXML file,
  **/
 public abstract class ControllerContext extends ContextWrapper implements Initializable,
-        Lifecycle, LifecycleOwner {
+        ControllerLifecycle, ControllerLifecycleOwner {
 
     @SuppressWarnings("unused")
     private static final String TAG = "ControllerContext";
+
 
     /**
      * root node of current FXML file.
@@ -65,7 +66,7 @@ public abstract class ControllerContext extends ContextWrapper implements Initia
 
     @Override
     public void observe(@NonNull Node node) {
-        LifecycleObserver.observe(node, this);
+        ControllerLifecycleObserver.observe(node, this);
     }
 
     public Node getRootNode() {

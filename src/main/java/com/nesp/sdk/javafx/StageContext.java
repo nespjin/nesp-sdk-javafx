@@ -2,14 +2,22 @@ package com.nesp.sdk.javafx;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.nesp.sdk.java.lang.AppObjRecycleWatcher;
+import com.nesp.sdk.java.util.Log;
 import com.nesp.sdk.javafx.concurrent.IThreadDispatcher;
-import com.nesp.sdk.javafx.lifecycle.Lifecycle;
-import com.nesp.sdk.javafx.lifecycle.LifecycleOwner;
+import com.nesp.sdk.javafx.lifecycle.StageLifecycle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
+import javafx.stage.WindowEvent;
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.ref.WeakReference;
+import java.util.Objects;
 
 /**
  * Team: NESP Technology
@@ -17,49 +25,109 @@ import javafx.stage.Window;
  * Time: Created 2021/8/29 12:15
  * Description:
  **/
-public abstract class StageContext extends Stage implements Context, Lifecycle, LifecycleOwner {
+public abstract class StageContext implements Context, StageLifecycle {
 
     private static final String TAG = "StageContext";
     private ContextWrapper mContextWrapper;
+    private StageStyle mStageStyle;
+    private volatile WeakReference<Stage> mStage;
+
+    @NotNull
+    public synchronized Stage getStage() {
+        if (mStage == null || mStage.get() == null) {
+            if (mStageStyle == null) {
+                mStage = new WeakReference<>(new Stage());
+            } else {
+                mStage = new WeakReference<>(new Stage(mStageStyle));
+            }
+            onCreate(Objects.requireNonNull(mStage.get()));
+        }
+        return Objects.requireNonNull(mStage.get());
+    }
 
     public StageContext() {
-        super();
-        initialize();
+        getStage();
     }
 
     public StageContext(final StageStyle style) {
-        super(style);
-        initialize();
+        this.mStageStyle = style;
+        getStage();
     }
 
-    private void initialize() {
+    @Override
+    public void onCreate(@NotNull final Stage stage) {
+        initialize(stage);
+    }
+
+    protected void setContent(final Object root) {
+        setContent(((Parent) root));
+    }
+
+    protected void setContent(final Parent root) {
+        getStage().setScene(new Scene(root));
+    }
+
+    private void initialize(Stage stage) {
         mContextWrapper = new ContextWrapper();
         AppObjRecycleWatcher.getSingleton().observeIfStarted(this);
     }
 
+    public void show() {
+        final Stage stage = getStage();
+        stage.setOnShowing(this::onShowing);
+        stage.setOnShown(this::onShown);
+        stage.setOnHiding(this::onHidding);
+        stage.setOnHidden(this::onHidden);
+        stage.setOnCloseRequest(this::onCloseRequest);
+        stage.iconifiedProperty().addListener((observable, oldValue, newValue) -> onIconified(oldValue, newValue));
+        stage.show();
+    }
+
+    public void showAndWait() {
+        getStage().showAndWait();
+    }
+
+    public void initStyle(StageStyle style) {
+        getStage().initStyle(style);
+    }
+
+    public boolean isResizable() {
+        return getStage().isResizable();
+    }
+
+    public void setResizable(boolean resizable) {
+        getStage().setResizable(resizable);
+    }
+
     @Override
-    public void onCreate(final Node root) {
+    public void onShowing(WindowEvent event) {
+    }
+
+    @Override
+    public void onShown(WindowEvent event) {
+    }
+
+    @Override
+    public void onHidding(WindowEvent event) {
+    }
+
+    @Override
+    public void onHidden(WindowEvent event) {
+        System.gc();
+    }
+
+    @Override
+    public void onCloseRequest(WindowEvent event) {
 
     }
 
     @Override
-    public void onAttachScene(final Scene scene, final Window window) {
-
+    public void onIconified(final boolean oldValue, final boolean newValue) {
     }
 
-    @Override
-    public void onDestroy() {
-
-    }
-
-    @Override
-    public void observe(final Node node) {
-
-    }
-
-    @Override
-    public void destroy() {
-
+    public void fireCloseEvent() {
+        final Stage stage = getStage();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     @Override
@@ -106,5 +174,4 @@ public abstract class StageContext extends Stage implements Context, Lifecycle, 
     public void runOnUIThreadDelay(final long delay, final Runnable runnable) {
         mContextWrapper.runOnUIThreadDelay(delay, runnable);
     }
-
 }

@@ -10,7 +10,7 @@ import javafx.stage.Window;
  * Time: Created 2021/11/3 21:18
  * Description:
  **/
-public class LifecycleAdapter implements Lifecycle {
+public class ControllerLifecycleAdapter implements ControllerLifecycle {
 
     private static final String TAG = "LifecycleAdapter";
 

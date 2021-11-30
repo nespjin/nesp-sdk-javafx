@@ -6,9 +6,9 @@ import com.nesp.sdk.javafx.concurrent.IThreadDispatcher;
 import com.nesp.sdk.javafx.content.BroadcastReceiver;
 import com.nesp.sdk.javafx.content.IntentFilter;
 import com.nesp.sdk.javafx.content.LocalBroadcastManager;
-import com.nesp.sdk.javafx.lifecycle.Lifecycle;
-import com.nesp.sdk.javafx.lifecycle.LifecycleObserver;
-import com.nesp.sdk.javafx.lifecycle.LifecycleOwner;
+import com.nesp.sdk.javafx.lifecycle.ControllerLifecycle;
+import com.nesp.sdk.javafx.lifecycle.ControllerLifecycleObserver;
+import com.nesp.sdk.javafx.lifecycle.ControllerLifecycleOwner;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -23,7 +23,7 @@ import java.io.IOException;
  * Description:
  **/
 public abstract class ViewContext extends AnchorPane implements Context,
-        Lifecycle, LifecycleOwner {
+        ControllerLifecycle, ControllerLifecycleOwner {
 
     private static final String TAG = "ViewContext";
 
@@ -123,7 +123,7 @@ public abstract class ViewContext extends AnchorPane implements Context,
 
     @Override
     public void observe(final Node node) {
-        LifecycleObserver.observe(node, this);
+        ControllerLifecycleObserver.observe(node, this);
     }
 
     @Override
