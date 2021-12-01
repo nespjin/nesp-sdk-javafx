@@ -3,11 +3,14 @@ package com.nesp.sdk.javafx.database;
 import com.nesp.sdk.java.util.Log;
 import com.nesp.sdk.javafx.content.ContentValues;
 import javafx.application.Platform;
+import org.sqlite.mc.SQLiteMCSqlCipherConfig;
+import org.sqlite.mc.SQLiteMCWxAES256Config;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
+
 
 /**
  * Team: NESP Technology
@@ -84,8 +87,15 @@ public abstract class Database {
 
     private static final String META_TABLE_NAME = "meta";
 
+    private final String mKey;
+
     public Database(final String path) {
+        this(path, "");
+    }
+
+    public Database(final String path, final String key) {
         mDatabasePath = path;
+        mKey = key;
     }
 
     public boolean connect() {
@@ -104,9 +114,15 @@ public abstract class Database {
                 }
             }
 
-            final Properties properties = new Properties();
-            properties.put("key", "N32c&Io!*6z7S4&4DE");
-            mConnection = DriverManager.getConnection("jdbc:sqlite:" + getDatabasePath(), properties);
+            if (mKey == null || mKey.isEmpty()) {
+                mConnection = DriverManager.getConnection("jdbc:sqlite:" + getDatabasePath());
+            } else {
+                mConnection = DriverManager.getConnection("jdbc:sqlite:" + getDatabasePath(),
+                        SQLiteMCSqlCipherConfig
+                                .getV4Defaults()
+                                .withKey(mKey)
+                                .toProperties());
+            }
             final Thread databaseInitializeThread = new Thread(exists ? this::checkWhenInitialize : this::create);
             databaseInitializeThread.setDaemon(true);
             databaseInitializeThread.start();

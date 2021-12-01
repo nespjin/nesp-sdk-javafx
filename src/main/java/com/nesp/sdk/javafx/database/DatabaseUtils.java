@@ -21,9 +21,9 @@ public final class DatabaseUtils {
             if (!valueString.isEmpty()) {
                 valueString.append(",");
             }
-            valueString.append("\"");
+            valueString.append("'");
             valueString.append(value);
-            valueString.append("\"");
+            valueString.append("'");
         }
         return valueString.toString();
     }

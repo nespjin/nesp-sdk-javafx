@@ -11,6 +11,7 @@ module com.nesp.sdk.javafx {
     requires org.json;
     requires java.sql;
     requires com.google.common;
+    requires io.github.willena.sqlitejdbc;
 
     opens com.nesp.sdk.javafx to javafx.fxml;
     exports com.nesp.sdk.javafx;
