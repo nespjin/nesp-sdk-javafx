@@ -1,5 +1,6 @@
 package com.nesp.sdk.javafx;
 
+import com.nesp.sdk.java.util.XMLResourceBundleControl;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.jetbrains.annotations.NotNull;
@@ -8,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.MissingResourceException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -65,7 +67,11 @@ public class Resource {
     }
 
     public static ResourceBundle newStringResourceBundle() {
-        return ResourceBundle.getBundle("strings/strings");
+        try {
+            return ResourceBundle.getBundle("strings/strings");
+        } catch (MissingResourceException e) {
+            return ResourceBundle.getBundle("strings.strings", new XMLResourceBundleControl());
+        }
     }
 
     public static <T> T tryLoadFxml(@NotNull String fxmlFileName,

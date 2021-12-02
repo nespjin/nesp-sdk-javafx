@@ -59,6 +59,10 @@ public abstract class StageContext implements Context, StageLifecycle {
         initialize(stage);
     }
 
+    protected void setTitle(final String title) {
+        getStage().setTitle(title);
+    }
+
     protected void setContent(final Object root) {
         setContent(((Parent) root));
     }
