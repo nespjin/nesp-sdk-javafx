@@ -16,6 +16,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Objects;
 
@@ -74,6 +75,21 @@ public abstract class StageContext implements Context, StageLifecycle {
 
     protected void setContent(final Parent root) {
         getStage().setScene(new Scene(root));
+    }
+
+    protected void setContent(final String fxmlFile) {
+        setContent(fxmlFile, this);
+    }
+
+    protected void setContent(final String fxmlFile, final Object controller) {
+        try {
+            final Node rootNode = Resource.tryLoadFxml(fxmlFile, this, controller);
+            if (controller instanceof ControllerContext context) {
+                context.onCreate(rootNode);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void initialize(Stage stage) {
