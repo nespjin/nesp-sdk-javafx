@@ -1,7 +1,27 @@
 # nesp-sdk-javafx
 Nesp software development kit for JavaFx
 
-## Dependency
+## Features
+
+### Resource
+Required [nesp-gradle-plugin-javafx](https://github.com/nespjin/nesp-gradle-plugin-javafx)
+
+#### String
+```java
+final String title = getResource().getString(R.string.app_name);
+setTitle(title);
+```
+
+#### Layout
+```java
+setContent(R.layout.main_stage);
+```
+
+### Database
+
+
+
+## Dependencies
 
 - [JavaFx 17.0.1](https://openjfx.io/)
 - [OpenJDK 17.0.1](http://www.planetjdk.org/projects/jdk/)
