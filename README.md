@@ -1,25 +1,76 @@
 # nesp-sdk-javafx
+
 Nesp software development kit for JavaFx
 
 ## Features
 
 ### Resource
+
 Required [nesp-gradle-plugin-javafx](https://github.com/nespjin/nesp-gradle-plugin-javafx)
 
 #### String
+
 ```java
-final String title = getResource().getString(R.string.app_name);
-setTitle(title);
+final String title=getResource().getString(R.string.app_name);
+        setTitle(title);
 ```
 
 #### Layout
+
 ```java
 setContent(R.layout.main_stage);
 ```
 
 ### Database
 
+```java
 
+class UserDatabase extends Database {
+    UserDatabase() {
+        super("DatabaseName", "Password");
+    }
+
+    @Override
+    public boolean onUpgrade(int oldVersion, int newVersion) {
+        System.out.println("onUpgrade: ");
+        // Database migrate sample.
+        final DatabaseMigrationManager databaseMigrationManager = new DatabaseMigrationManager
+                (database, oldVersion, newVersion);
+        databaseMigrationManager.setOnMigrationListener(
+                new DatabaseMigrationManager.OnMigrationListener() {
+                    @Override
+                    public void onBeforeMigration() {
+                    }
+
+                    @Override
+                    public void onMigration(final AbsDatabaseMigration migration) {
+                    }
+
+                    @Override
+                    public void onAfterMigration() {
+                    }
+                });
+
+        databaseMigrationManager.addMigration(new Migration_1_2());
+        databaseMigrationManager.addMigration(new Migration_2_3());
+        databaseMigrationManager.addMigration(new Migration_3_4());
+        databaseMigrationManager.addMigration(new Migration_4_5());
+        databaseMigrationManager.migrate();
+        return true;
+    }
+
+    @Override
+    public int getVersion() {
+        return 1;
+    }
+
+    @Override
+    public void onCreate() {
+        execUpdate(Sql.CREATE_TABLE);
+    }
+
+}
+```
 
 ## Dependencies
 
