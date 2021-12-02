@@ -3,6 +3,7 @@ package com.nesp.sdk.javafx.database;
 import com.nesp.sdk.java.util.Log;
 import com.nesp.sdk.javafx.content.ContentValues;
 import javafx.application.Platform;
+import org.sqlite.SQLiteConfig;
 import org.sqlite.mc.SQLiteMCSqlCipherConfig;
 import org.sqlite.mc.SQLiteMCWxAES256Config;
 
@@ -117,11 +118,11 @@ public abstract class Database {
             if (mKey == null || mKey.isEmpty()) {
                 mConnection = DriverManager.getConnection("jdbc:sqlite:" + getDatabasePath());
             } else {
+                final SQLiteConfig defaultSqlCipherConfig = getDefaultSqlCipherConfig();
+                final SQLiteConfig sqlCipherConfig = getSqlCipherConfig();
+
                 mConnection = DriverManager.getConnection("jdbc:sqlite:" + getDatabasePath(),
-                        SQLiteMCSqlCipherConfig
-                                .getV4Defaults()
-                                .withKey(mKey)
-                                .toProperties());
+                        (sqlCipherConfig == null ? defaultSqlCipherConfig : sqlCipherConfig).toProperties());
             }
             final Thread databaseInitializeThread = new Thread(exists ? this::checkWhenInitialize : this::create);
             databaseInitializeThread.setDaemon(true);
@@ -131,6 +132,14 @@ public abstract class Database {
             e.printStackTrace();
             return false;
         }
+    }
+
+    protected final SQLiteConfig getDefaultSqlCipherConfig() {
+        return SQLiteMCSqlCipherConfig.getV4Defaults().withKey(mKey);
+    }
+
+    protected SQLiteConfig getSqlCipherConfig() {
+        return getDefaultSqlCipherConfig();
     }
 
     private void checkWhenInitialize() {
