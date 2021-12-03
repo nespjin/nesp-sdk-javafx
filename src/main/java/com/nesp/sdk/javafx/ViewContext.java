@@ -44,8 +44,8 @@ public abstract class ViewContext extends AnchorPane implements Context,
     protected void setContentView(final String fxmlFile, final Object controller) {
         try {
             mRootNode = Resource.tryLoadFxml(fxmlFile, this, controller);
-            if (controller instanceof ControllerContext context) {
-                context.onCreate(mRootNode);
+            if (controller instanceof ControllerContext) {
+                ((ControllerContext) controller).onCreate(mRootNode);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

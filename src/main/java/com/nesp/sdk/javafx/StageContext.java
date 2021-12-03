@@ -84,8 +84,8 @@ public abstract class StageContext implements Context, StageLifecycle {
     protected void setContent(final String fxmlFile, final Object controller) {
         try {
             final Node rootNode = Resource.tryLoadFxml(fxmlFile, this, controller);
-            if (controller instanceof ControllerContext context) {
-                context.onCreate(rootNode);
+            if (controller instanceof ControllerContext) {
+                ((ControllerContext) controller).onCreate(rootNode);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
