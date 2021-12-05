@@ -27,7 +27,7 @@ public final class ControllerLifecycleObserver implements LifecycleObserver {
             @Override
             public void changed(final ObservableValue<? extends Scene> observable,
                                 final Scene oldValue, final Scene newValue) {
-                if (lifecycle != null) {
+                if (lifecycle != null && node != null && newValue != null) {
                     ThreadDispatcher.getInstance().runOnUIThread(() ->
                             lifecycle.onAttachScene(node.getScene(), newValue.getWindow()));
                 }

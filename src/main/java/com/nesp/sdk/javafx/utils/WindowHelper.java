@@ -1,7 +1,9 @@
 package com.nesp.sdk.javafx.utils;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -11,7 +13,7 @@ import javafx.stage.Window;
  * Time: Created 2021/11/4 下午9:07
  * Description:
  **/
-public class WindowDragHelper {
+public class WindowHelper {
     private static boolean isRight;// 是否处于右边界调整窗口状态
     private static boolean isBottomRight;// 是否处于右下角调整窗口状态
     private static boolean isBottom;// 是否处于下边界调整窗口状态
@@ -20,7 +22,7 @@ public class WindowDragHelper {
     private double yOffset = 0;
 
 
-    public void bind(Node node) {
+    public void bindDrag(Node node) {
 //        if (node.getParent() == null) {
 //            DropShadow dropshadow = new DropShadow();// 阴影向外
 //            dropshadow.setRadius(10);// 颜色蔓延的距离
@@ -104,6 +106,45 @@ public class WindowDragHelper {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
+    }
+
+
+    private double mLastUnMaxX = -1;
+    private double mLastUnMaxY = -1;
+    private double mLastUnMaxWidth = -1;
+    private double mLastUnMaxHeight = -1;
+
+    public void setMaximized2(final Stage stage, boolean maximized) {
+        if (maximized) {
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+
+            mLastUnMaxX = stage.getX();
+            mLastUnMaxY = stage.getY();
+            mLastUnMaxWidth = stage.getWidth();
+            mLastUnMaxHeight = stage.getHeight();
+
+            stage.setX(bounds.getMinX());
+            stage.setY(bounds.getMinY());
+            stage.setWidth(bounds.getWidth());
+            stage.setHeight(bounds.getHeight());
+        } else {
+            if (mLastUnMaxX > 0) {
+                stage.setX(mLastUnMaxX);
+            }
+
+            if (mLastUnMaxY > 0) {
+                stage.setY(mLastUnMaxY);
+            }
+
+            if (mLastUnMaxWidth > 0) {
+                stage.setWidth(mLastUnMaxWidth);
+            }
+
+            if (mLastUnMaxHeight > 0) {
+                stage.setHeight(mLastUnMaxHeight);
+            }
+        }
     }
 
 }

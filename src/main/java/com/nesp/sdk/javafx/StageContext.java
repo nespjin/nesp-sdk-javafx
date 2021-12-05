@@ -8,9 +8,11 @@ import com.nesp.sdk.javafx.lifecycle.StageLifecycle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -106,6 +108,50 @@ public abstract class StageContext implements Context, StageLifecycle {
         stage.setOnCloseRequest(this::onCloseRequest);
         stage.iconifiedProperty().addListener((observable, oldValue, newValue) -> onIconified(oldValue, newValue));
         stage.show();
+    }
+
+    private double mLastUnMaxX = -1;
+    private double mLastUnMaxY = -1;
+    private double mLastUnMaxWidth = -1;
+    private double mLastUnMaxHeight = -1;
+
+    public void setMaximized2(boolean maximized) {
+        final Stage stage = getStage();
+
+        if (maximized) {
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+
+            mLastUnMaxX = stage.getX();
+            mLastUnMaxY = stage.getY();
+            mLastUnMaxWidth = stage.getWidth();
+            mLastUnMaxHeight = stage.getHeight();
+
+            stage.setX(bounds.getMinX());
+            stage.setY(bounds.getMinY());
+            stage.setWidth(bounds.getWidth());
+            stage.setHeight(bounds.getHeight());
+        } else {
+            if (mLastUnMaxX > 0) {
+                stage.setX(mLastUnMaxX);
+            }
+
+            if (mLastUnMaxY > 0) {
+                stage.setY(mLastUnMaxY);
+            }
+
+            if (mLastUnMaxWidth > 0) {
+                stage.setWidth(mLastUnMaxWidth);
+            }
+
+            if (mLastUnMaxHeight > 0) {
+                stage.setHeight(mLastUnMaxHeight);
+            }
+        }
+    }
+
+    private void setMaximized(boolean maximized) {
+        getStage().setMaximized(maximized);
     }
 
     public void showAndWait() {
