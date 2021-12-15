@@ -17,7 +17,7 @@
 package com.nesp.sdk.javafx.graphics;
 
 
-import com.nesp.sdk.java.text.TextUtils;
+import com.nesp.sdk.java.text.TextUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -203,7 +203,7 @@ public final class Rect implements Serializable {
      */
     @Nullable
     public static Rect unflattenFromString(@Nullable String str) {
-        if (TextUtils.isEmpty(str)) {
+        if (TextUtil.isEmpty(str)) {
             return null;
         }
 

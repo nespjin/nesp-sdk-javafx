@@ -1,6 +1,6 @@
 package com.nesp.sdk.javafx.control;
 
-import com.nesp.sdk.java.text.TextUtils;
+import com.nesp.sdk.java.text.TextUtil;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
 
@@ -27,9 +27,9 @@ public final class TextInputControlUtil {
     public static void bindInputAndClear(final TextInputControl inputControl,
                                          final ImageView clear) {
         if (inputControl == null || clear == null) return;
-        clear.setFitWidth(TextUtils.isNotEmpty(inputControl.getText()) ? 18 : 0.1);
+        clear.setFitWidth(TextUtil.isNotEmpty(inputControl.getText()) ? 18 : 0.1);
         inputControl.textProperty().addListener((observable, oldValue, newValue) ->
-                clear.setFitWidth(TextUtils.isNotEmpty(newValue) ? 18 : 0.1));
+                clear.setFitWidth(TextUtil.isNotEmpty(newValue) ? 18 : 0.1));
         clear.setOnMouseClicked(event -> inputControl.clear());
     }
 
